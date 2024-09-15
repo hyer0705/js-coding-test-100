@@ -33,6 +33,7 @@ const solution = (k, operations) => {
     switch (operation) {
       case OPERATIONS.UNION:
         union(set, x, y);
+        break;
       case OPERATIONS.FIND:
         // call find function
         findRoot(set, x);
