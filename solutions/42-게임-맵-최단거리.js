@@ -60,30 +60,31 @@ function solution(maps) {
   const N = maps.length;
   const M = maps[0].length;
 
-  queue.enqueue([0, 0, 1]); // [x, y, 최단 거리?]
+  queue.enqueue([0, 0, 1]); // [y, x, 최단 거리?]
   visited.add("0,0");
 
   const isValid = (x, y) =>
     x >= 0 &&
     y >= 0 &&
-    x < maps.length &&
-    y < maps.length &&
+    x < M &&
+    y < N &&
     !visited.has(`${x},${y}`) &&
-    maps[x][y] === 1;
-  while (!queue.isEmpty()) {
-    const [x, y, distance] = queue.dequeue();
+    maps[y][x] === 1;
 
-    if (x == N - 1 && y == M - 1) {
+  while (!queue.isEmpty()) {
+    const [y, x, distance] = queue.dequeue();
+
+    if (x == M - 1 && y == N - 1) {
       answer = distance;
       break;
     }
     // if (distance > answer) answer = distance;
 
     for (let i = 0; i < dx.length; i++) {
-      const [adjX, adjY] = [x + dx[i], y + dy[i]];
+      const [adjY, adjX] = [y + dy[i], x + dx[i]];
 
       if (isValid(adjX, adjY)) {
-        queue.enqueue([adjX, adjY, distance + 1]);
+        queue.enqueue([adjY, adjX, distance + 1]);
         visited.add(`${adjX},${adjY}`);
       }
     }
